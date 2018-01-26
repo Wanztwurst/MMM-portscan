@@ -3,6 +3,9 @@ MMM-portscan is a module for the smart mirror platform MagicMirror. It shows you
 
 MagicMirror for RaspberryPi: https://github.com/MichMich/MagicMirror
 
+![MMM-portscan](.github/screenshot.png)
+
+
 ## Installation
 
 1. Install MagicMirror on your RaspberryPi (if not already installed)
@@ -13,9 +16,15 @@ MagicMirror for RaspberryPi: https://github.com/MichMich/MagicMirror
 #### Example entry for config.js
 ```javascript
 {
-  module: 'portscan',
-  position: 'lower_third',
+    module: 'MMM-portscan',
+    position: 'bottom_right',
+    
     config: {
+      updateInterval: 60,
+      textalign: 'right',
+      color_open: '#00ff00',
+      color_closed: '#ff0000',
+
       hosts: [
         {
           name: '192.168.0.1',
@@ -25,7 +34,7 @@ MagicMirror for RaspberryPi: https://github.com/MichMich/MagicMirror
           ] 
         },
         {
-          name: '192.168.0.2',
+          name: 'github.com',
           ports: [
             {port: 80},
             {port: 22},
@@ -38,3 +47,9 @@ MagicMirror for RaspberryPi: https://github.com/MichMich/MagicMirror
  ```
  Each machine gets an object containing the hostname or ip and the ports to check.
  Also choose the `position` you want your entries at. Don't forget the commas to separate entries.
+ 
+ #### Possible values for config:
+ - updateInterval: in seconds
+ - textalign: left, center, right
+ - color_open: any hex value (e.g. #ff0000, #b3a2c1), color for open port numbers - leave empty for default color
+ - color_closed: any hex value (e.g. #ff0000, #b3a2c1), color for closed port numbers - leave empty for default color
