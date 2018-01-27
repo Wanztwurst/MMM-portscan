@@ -20,36 +20,40 @@ MagicMirror for RaspberryPi: https://github.com/MichMich/MagicMirror
     position: 'bottom_right',
     
     config: {
-      updateInterval: 60,
-      textalign: 'right',
-      color_open: '#00ff00',
-      color_closed: '#ff0000',
+      updateInterval: 60,      // in seconds
+      textalign: 'right',      // left, right, center
+      color_open: '#00ff00',   // hex value or empty
+      color_closed: '#ff0000', // hex value or empty
 
       hosts: [
         {
-          name: '192.168.0.1',
+          hostname: '127.0.0.1',
           ports: [
-            {port: 80},
+            {port: 80, displayedName: 'http'},
+            {port: 443, displayedName: 'https'},
             {port: 8080},
-          ] 
+            {port: 42}
+          ]
         },
         {
-          name: 'github.com',
+          hostname: 'github.com',
+          displayedName: 'GitHub',
           ports: [
-            {port: 80},
-            {port: 22},
-            {port: 123},
-          ] 
-        },
-      ]
+                {port: 80},
+                {port: 443},
+                {port: 22, displayedName: 'ssh'}
+          ]
+        }
+    ]
     }
  }
  ```
  Each machine gets an object containing the hostname or ip and the ports to check.
- Also choose the `position` you want your entries at. Don't forget the commas to separate entries.
+ Don't forget the commas to separate entries.
  
- #### Possible values for config:
+ #### Possible values for config
  - updateInterval: in seconds
  - textalign: left, center, right
  - color_open: any hex value (e.g. #ff0000, #b3a2c1), color for open port numbers - leave empty for default color
  - color_closed: any hex value (e.g. #ff0000, #b3a2c1), color for closed port numbers - leave empty for default color
+ - displayedName: hosts and ports can have a different name to display (instead of the hostname/ip)

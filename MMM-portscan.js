@@ -8,7 +8,25 @@ Module.register('MMM-portscan', {
         updateInterval: 10, // in seconds
         textalign: 'left',
         color_open: '#00ff00',
-        color_closed: '#ff0000'
+        color_closed: '#ff0000',
+
+        hosts: [
+            {
+                hostname: '127.0.0.1',
+                ports: [
+                    {port: 80, displayedName: 'http'},
+                    {port: 42}
+                ]
+            },
+            {
+                hostname: 'github.com',
+                displayedName: 'GitHub',
+                ports: [
+                    {port: 80},
+                    {port: 22, displayedName: 'ssh'}
+                ]
+            }
+        ]
     },
 
     payload: {},
@@ -31,7 +49,7 @@ Module.register('MMM-portscan', {
 
     socketNotificationReceived: function (notification, payload) {
         if (notification === 'PORTSCAN_RESPONSE') {
-            Log.info(payload);
+            //Log.info(payload);
 
             if (payload) {
                 this.payload = payload;
@@ -50,12 +68,12 @@ Module.register('MMM-portscan', {
 
         this.payload.forEach(function(host) {
             var hostDiv = document.createElement("div");
-            console.log(self.config);
+            //console.log(self.config);
             hostDiv.style.textAlign = self.config.textalign;
 
             // name
             var nameDiv = document.createElement("div");
-            nameDiv.innerHTML = host.name;
+            nameDiv.innerHTML = host.displayedName !== undefined ? host.displayedName : host.hostname;;
             nameDiv.className = "bright";
             hostDiv.appendChild(nameDiv);
 
@@ -74,7 +92,7 @@ Module.register('MMM-portscan', {
 
                 portDiv.className = classes;
 
-                portDiv.innerHTML = port.port;
+                portDiv.innerHTML = port.displayedName !== undefined ? port.displayedName : port.port;
                 hostDiv.appendChild(portDiv);
             });
 

@@ -50,7 +50,7 @@ module.exports = NodeHelper.create({
      * @returns boolean : true if open, false if closed or host not found
      */
     scanHost: function (host_i, port_i) {
-        var host = this.payload[host_i].name;
+        var host = this.payload[host_i].hostname;
         var port = this.payload[host_i].ports[port_i].port;
         var self = this;
 
